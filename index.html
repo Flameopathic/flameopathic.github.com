@@ -6,11 +6,23 @@
       type="image/png"
       href="/favicon.png">
       <style>
-         body {
-            background-color: lightblue;
+         @media (prefers-color-scheme: dark){
+            body {
+               background-color: darkolivegreen;
+               color: white
+            }
+            .highlight {
+               color: black;
+            }
          }
-         .highlight {
-            color: white;
+         @media (prefers-color-scheme: light){
+            body {
+               background-color: greenyellow;
+               color: black
+            }
+            .highlight {
+               color: white;
+            }
          }
       </style>
    </head>
