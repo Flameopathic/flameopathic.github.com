@@ -85,15 +85,13 @@
          }
 
          function drawScore() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "black";
-  if(score=0)
-  {
-      ctx.fillText("Accuracy: ", 10, 20);
-  }else{
-      ctx.fillText("Accuracy: " + score/blocks*100 + "%" , 10, 20);
-  }
-  //ctx.fillText("Accuracy: " + score/blocks*100 + "%" , 10, 20);
+   ctx.font = "16px Arial";
+   ctx.fillStyle = "black"; 
+   var accuracy = score/blocks*100
+   if (accuracy === NaN) {
+      accuracy = 100
+   }
+   ctx.fillText("Accuracy: " +  + "%" , 10, 20);
 }
 
          function updateGame() {
