@@ -1,27 +1,120 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Catcher - Flameopathic</title>
+      <title>Clothing Selector - Flameopathic</title>
       <link rel="icon"
       type="image/png"
       href="/favicon.png">
       <style>
-         body {
-            background-color: rgb(255, 0, 0);
+         @media (prefers-color-scheme: dark){
+            body {
+               background-color: darkolivegreen;
+               color: white
+            }
+            .highlight {
+               color: black;
+            }
          }
-         .highlight {
-            color: white;
+         @media (prefers-color-scheme: light){
+            body {
+               background-color: rgb(48, 173, 10);
+               color: black
+            }
+            .highlight {
+               color: white;
+            }
          }
       </style>
    </head>
    <body>
-      <h1>Multiplier</h1>
-      <button onclick="hi()">Hello!!</button>
+      <canvas id="gameCanvas" width="400" height="850
+      "></canvas>
       <script>
-         function hi() {
-            alert("Hello, World!");
+         var canvas = document.getElementById("gameCanvas");
+         var ctx = canvas.getContext("2d");
+
+         var basketx = 200;
+         var baskety = canvas.height - 50;
+         var basketw = 80;
+         var basketh = 20;
+         var basketspeed = 20
+         var speed = 1500
+
+         var time = 0
+
+         var score = 0
+
+         var fallers = [];
+
+         function drawBasket() {
+            ctx.fillStyle = "brown";
+            ctx.fillRect(basketx-(basketw/2), baskety-(basketh/2), basketw, basketh);
          }
+
+         function newFaller() {
+            fallers.push([Math.random()*canvas.width, -20, 20, 20])
+            speed--
+            setTimeout(newFaller, speed)
+         }
+
+         function drawFallers() {
+            fallers.forEach(function(element) {
+               ctx.fillStyle = "red";
+               ctx.fillRect(element[0]-element[2], element[1]-(element[3]/2), element[2], element[3]);
+               element[1] += 2;
+               if (element[1] > canvas.height+element[3]*2) {
+                  fallers.splice(fallers.indexOf(element), 1)
+                  time += 1
+               }
+            })
+         }
+
+         function checkCollision() {
+            fallers.forEach(function(element) {
+               if (
+                  element[0] - element[2] / 2 < basketx + basketw / 2 &&
+      element[0] + element[2] / 2 > basketx - basketw / 2 &&
+      element[1] - element[3] / 2 < baskety + basketh / 2 &&
+      element[1] + element[3] / 2 > baskety - basketh / 2
+               ) {
+                  score++;
+                  fallers.splice(fallers.indexOf(element), 1)
+                  time += 1
+               }
+            })
+         }
+
+         function drawScore() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText("Accuracy: " + score/time*100 + "%" , 10, 20);
+}
+
+         function updateGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            checkCollision()
+            drawFallers();
+            drawBasket();
+            drawScore()
+            requestAnimationFrame(updateGame);
+         }
+         updateGame();
+         newFaller()
+         document.addEventListener("keydown", function(event) {
+            if (event.key === "ArrowLeft") {
+               basketx -= basketspeed;
+               if (basketx-basketw/2 < 0) {
+                  basketx = basketw/2;
+               }
+            } else if (event.key === "ArrowRight") {
+               basketx += basketspeed;
+               if (basketx+basketw/2 > canvas.width) {
+                  basketx = canvas.width-basketw/2
+               }
+            }
+         })        
       </script>
+      <br>
       <a href="/">Back</a>
    </body>
 </html>
