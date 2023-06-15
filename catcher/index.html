@@ -40,7 +40,7 @@
          var basketspeed = 20
          var speed = 1500
 
-         var time = 0
+         var blocks = 0
 
          var score = 0
 
@@ -64,7 +64,7 @@
                element[1] += 2;
                if (element[1] > canvas.height+element[3]*2) {
                   fallers.splice(fallers.indexOf(element), 1)
-                  time += 1
+                  blocks += 1
                }
             })
          }
@@ -79,7 +79,7 @@
                ) {
                   score++;
                   fallers.splice(fallers.indexOf(element), 1)
-                  time += 1
+                  blocks += 1
                }
             })
          }
@@ -87,7 +87,12 @@
          function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "black";
-  ctx.fillText("Accuracy: " + score/time*100 + "%" , 10, 20);
+  if(score=0)
+  {
+      ctx.fillText("Accuracy: ");
+  }else{
+      ctx.fillText("Accuracy: " + score/blocks*100 + "%" , 10, 20);
+  }
 }
 
          function updateGame() {
