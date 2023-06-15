@@ -88,10 +88,10 @@
    ctx.font = "16px Arial";
    ctx.fillStyle = "black"; 
    var accuracy = score/blocks*100
-   if (accuracy === NaN) {
+   if (isNaN(accuracy)) {
       accuracy = 100
    }
-   ctx.fillText("Accuracy: " +  + "%" , 10, 20);
+   ctx.fillText("Accuracy: " + accuracy.toFixed(2) + "%" , 10, 20);
 }
 
          function updateGame() {
