@@ -5,21 +5,31 @@ let animations = {}
 class Board {
     constructor(length) {
         this.board = []
-        for (let i = 0; i < length*2-1; i++) {
+        this.length = length
+        for (let i = 0; i < this.length*2-1; i++) {
             this.board.push([])
-            for (let j = 0; j < length + (i > length ? -(length*2-1-i) : i); j++) {
+            for (let j = 0; j < this.length + (i > this.length ? -(this.length*2-1-i) : i); j++) {
                 this.board[i].push(0)
             }
         }
     }
     rotate(n) {
-        for (let i = 0; i < length*2-1; i++) {
-            
-        }
+        for (let r = 0; r < n; r++) {
+            newBoard = []
+            for (let i = 0; i < this.length*2-1; i++) {
+                newBoard.push([])
+                for (let j = 0; j < this.length + (i > this.length ? -(this.length*2-1-i) : i); j++) {
+                    newBoard[i].push(0)
+                }
+            }
+            for (let i = 0; i < this.length*2-1; i++) {
+                for (let j = 0; j < this.board[i].length(); j++) {
+                    
+                }
+            }
+        }   
     }
 }
-
-
 
 function drawHexagon(x, y, size, color) {
     ctx.beginPath()
