@@ -13,7 +13,7 @@ class Board {
             }
         }
     }
-    rotate(n) {
+    rotate(n=1) {
         for (let r = 0; r < n; r++) {
             newBoard = []
             for (let i = 0; i < this.length*2-1; i++) {
